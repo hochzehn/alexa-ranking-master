@@ -1,0 +1,16 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:3.2.6
+    ports:
+      - 27117:27017
+  restmq:
+    image: pablozaiden/restmq
+    ports:
+      - 8888:8888
+      - 6379
+  worker:
+    image: hochzehn/alexa-ranking-worker
+    command: restmq
+    links:
+      - restmq:restmq
